@@ -6,7 +6,7 @@
 #if defined(COMPILER_MSVC)
 	#include <intrin.h>
 	#if !defined(_DEBUG)
-		#undef mul32x32_64		
+		#undef mul32x32_64
 		#define mul32x32_64(a,b) __emulu(a,b)
 	#endif
 	#undef inline
@@ -20,6 +20,7 @@
 	#include <sys/param.h>
 	#define DONNA_INLINE inline __attribute__((always_inline))
 	#define DONNA_NOINLINE __attribute__((noinline))
+        #undef ALIGN
 	#define ALIGN(x) __attribute__((aligned(x)))
 	#define ROTL32(a,b) (((a) << (b)) | ((a) >> (32 - b)))
 	#define ROTR32(a,b) (((a) >> (b)) | ((a) << (32 - b)))
@@ -99,7 +100,7 @@ static inline void U32TO8_LE(unsigned char *p, const uint32_t v) {
 #if !defined(HAVE_UINT128)
 static inline uint32_t U8TO32_LE(const unsigned char *p) {
 	return
-	(((uint32_t)(p[0])      ) | 
+	(((uint32_t)(p[0])      ) |
 	 ((uint32_t)(p[1]) <<  8) |
 	 ((uint32_t)(p[2]) << 16) |
 	 ((uint32_t)(p[3]) << 24));
@@ -131,5 +132,4 @@ static inline void U64TO8_LE(unsigned char *p, const uint64_t v) {
 
 #include <stdlib.h>
 #include <string.h>
-
 

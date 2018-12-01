@@ -7,7 +7,7 @@
 
 /* define ED25519_SUFFIX to have it appended to the end of each public function */
 #if !defined(ED25519_SUFFIX)
-#define ED25519_SUFFIX 
+#define ED25519_SUFFIX
 #endif
 
 #define ED25519_FN3(fn,suffix) fn##suffix
@@ -86,7 +86,7 @@ ED25519_FN(ed25519_sign) (const unsigned char *m, size_t mlen, const ed25519_sec
 	/* S = (r + H(R,A,m)a) */
 	add256_modm(S, S, r);
 
-	/* S = (r + H(R,A,m)a) mod L */	
+	/* S = (r + H(R,A,m)a) mod L */
 	contract256_modm(RS + 32, S);
 }
 
@@ -122,7 +122,7 @@ ED25519_FN(ed25519_sign_open) (const unsigned char *m, size_t mlen, const ed2551
 */
 
 void
-ED25519_FN(curved25519_scalarmult_basepoint) (curved25519_key pk, const curved25519_key e) {
+ED25519_FN(curved25519_scalarmult_basepoint) (ed25519_public_key pk, const ed25519_secret_key e) {
 	curved25519_key ec;
 	bignum256modm s;
 	bignum25519 ALIGN(16) yplusz, zminusy;
@@ -147,4 +147,3 @@ ED25519_FN(curved25519_scalarmult_basepoint) (curved25519_key pk, const curved25
 	curve25519_mul(yplusz, yplusz, zminusy);
 	curve25519_contract(pk, yplusz);
 }
-
